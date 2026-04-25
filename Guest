@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+public class Guest {
+    private String name;
+    private ArrayList<Integer> rooms;
+    public Guest(String name){
+        this.name = name;
+        rooms = new ArrayList<>();
+    }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public ArrayList<Integer> getRooms(){
+        return rooms;
+    }
+    public boolean getRoom(){
+        return rooms.isEmpty();
+    }
+
+    public void addRoom(int roomNumber){
+        rooms.add(roomNumber);
+    }
+    public void removeRoom(int roomNumber){
+        rooms.remove(Integer.valueOf(roomNumber));
+    }
+    public boolean hasRoom(int roomNumber){
+        boolean theRoom = false;
+        if(!rooms.contains(roomNumber)){
+            return theRoom;
+        }
+        theRoom = true;
+        return theRoom;
+    }
+}

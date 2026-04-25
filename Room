@@ -1,0 +1,27 @@
+public class Room {
+    private int roomNumber;
+    private boolean booked;
+    private String guestName;
+    public Room(int roomNumber){
+        this.roomNumber = roomNumber;
+        this.booked = false;
+        this.guestName = null;
+    }
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+    public boolean isBooked() {
+        return booked;
+    }
+    public String getGuestName() {
+        return guestName;
+    }
+    public void book(String guestName){
+        this.booked = true;
+        this.guestName = guestName;
+    }
+    public void clearBooking(){
+        this.booked = false;
+        this.guestName = null;//makes it empty in a way
+    }
+}

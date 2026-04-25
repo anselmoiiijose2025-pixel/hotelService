@@ -1,0 +1,68 @@
+public class Main {
+    public static void main(String[] args) {
+
+        HotelSystem hs = new HotelSystem();
+
+        // ---------------------------
+        // ADD GUESTS
+        // ---------------------------
+        hs.addGuest("Alice");
+        hs.addGuest("Bob");
+
+        hs.addGuest("Alice"); // duplicate test
+
+        // ---------------------------
+        // ADD ROOMS
+        // ---------------------------
+        hs.addRoom(101);
+        hs.addRoom(102);
+
+        hs.addRoom(101); // duplicate test
+
+        // ---------------------------
+        // VALID BOOKINGS
+        // ---------------------------
+        hs.bookRoom("Alice", 101);
+        hs.bookRoom("Bob", 102);
+
+        // ---------------------------
+        // INVALID BOOKINGS
+        // ---------------------------
+        hs.bookRoom("Alice", 101); // already booked
+        hs.bookRoom("Charlie", 101); // invalid guest
+        hs.bookRoom("Alice", 999); // invalid room
+
+        // ---------------------------
+        // STATE CONSISTENCY CHECK
+        // ---------------------------
+        hs.printGuest("Alice");
+        hs.printRoom(101);
+
+        // ---------------------------
+        // CANCEL VALID
+        // ---------------------------
+        hs.cancelBooking("Alice", 101);
+
+        // ---------------------------
+        // CANCEL INVALID
+        // ---------------------------
+        hs.cancelBooking("Alice", 101); // already empty
+        hs.cancelBooking("Bob", 101); // wrong guest
+        hs.cancelBooking("Charlie", 102); // invalid guest
+        hs.cancelBooking("Bob", 999); // invalid room
+
+        // ---------------------------
+        // REBOOK AFTER CANCEL
+        // ---------------------------
+        hs.bookRoom("Bob", 101);
+
+        // ---------------------------
+        // FINAL STATE
+        // ---------------------------
+        hs.printGuest("Alice");
+        hs.printGuest("Bob");
+
+        hs.printRoom(101);
+        hs.printRoom(102);
+    }
+}

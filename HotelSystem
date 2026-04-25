@@ -1,0 +1,97 @@
+import java.util.HashMap;
+
+public class HotelSystem {
+
+    private HashMap<String, Guest> guests;
+    private HashMap<Integer, Room> rooms;
+
+    public HotelSystem(){
+        guests = new HashMap<>();
+        rooms = new HashMap<>();
+    }
+
+    public void addGuest(String name){
+        if(guests.containsKey(name)){//always check for existence
+           System.out.println(name + " already exists");
+           return;
+        }
+        Guest newGuest = new Guest(name);
+        guests.put(name, newGuest);
+    }
+    public void addRoom(int roomNumber){
+        if(rooms.containsKey(roomNumber)){
+            System.out.println(roomNumber + " already exists");
+            return;
+        }
+        Room newRoom = new Room(roomNumber);
+        rooms.put(roomNumber, newRoom);
+    }
+    public void bookRoom(String name, int roomNumber){
+        if(!guests.containsKey(name) || !rooms.containsKey(roomNumber)){
+            System.out.println("One or more parameters does not exist");
+            return;//check if either param exists
+        }
+        Guest g = guests.get(name);
+        Room r = rooms.get(roomNumber);
+        if(r.isBooked()){
+            System.out.println(roomNumber + " is already booked");
+            return;//check if class params are valid
+        }
+        if(g.hasRoom(roomNumber)){
+            System.out.println(name + " already has booked "+ g.getRooms());
+            return;//same
+        }
+        //input
+        r.book(name);
+        g.addRoom(roomNumber);
+        System.out.println(name + " has booked room " + roomNumber);
+    }
+    public void cancelBooking(String name, int roomNumber){
+        if(!guests.containsKey(name) || !rooms.containsKey(roomNumber)){
+            System.out.println("One or more parameters does not exist");
+            return;//check if either param exists
+        }
+        Guest g = guests.get(name);
+        Room r = rooms.get(roomNumber);
+        if(!r.isBooked()){
+            System.out.println(roomNumber + " does not have a room booked");
+            return;//check if class params are valid
+        }
+        if(!r.getGuestName().equalsIgnoreCase(name)){
+            System.out.println("Names do not match");
+            return;
+        }
+        if(!g.hasRoom(roomNumber)){
+            System.out.println(name + " does not have a room");
+            return;//same
+        }
+        //redundancy is on purpose ion trust it
+        r.clearBooking();
+        g.removeRoom(roomNumber);
+        System.out.println("Cancelled booking");
+    }
+    public void printGuest(String name){
+        if(!guests.containsKey(name)){
+            System.out.println("Invalid statement");
+            return;
+        }
+        Guest g = guests.get(name);
+        if(g.getRooms().isEmpty()){
+            System.out.println(g.getName() + " has booked no room(s)");
+            return;
+        }
+        System.out.println(g.getName() + " has booked room(s)" + g.getRooms());
+    }
+    public void printRoom(int roomNumber){
+        if(!rooms.containsKey(roomNumber)){
+            System.out.println("Invalid statement");
+            return;
+        }
+        Room r = rooms.get(roomNumber);
+        if(!r.isBooked()){
+            System.out.println(roomNumber + " is not booked by anyone");
+            return;
+        }
+        System.out.println(roomNumber + " is booked by " + r.getGuestName());
+    }
+}
